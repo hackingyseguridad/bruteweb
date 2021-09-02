@@ -11,7 +11,7 @@ do
     do
             credencial=$(printf "%s:%s" "$user" "$password")
 
-curl -k "https:/$credencial@edomus.telefonica.es/lt/" \
+curl -k "https:/$credencial@192.168.1.1" \
 -H 'Connection: keep-alive' \
 -H 'Upgrade-Insecure-Requests: 1' \
 -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36' \
