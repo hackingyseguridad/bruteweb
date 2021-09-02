@@ -12,4 +12,5 @@ curl -k -I -vvv  http://$usuario:$clave@192.168.1.1 \
 -H 'Sec-Fetch-Mode: navigate' \
 -H 'Accept-Encoding: gzip, deflate, br' \
 -H 'Accept-Language: es-ES,es;q=0.9,en;q=0.8' \
+--compressed
 done
